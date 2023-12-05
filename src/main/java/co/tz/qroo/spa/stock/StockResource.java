@@ -1,4 +1,4 @@
-package co.tz.qroo.spa.kyc;
+package co.tz.qroo.spa.stock;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/kycs", produces = MediaType.APPLICATION_JSON_VALUE)
-public class KycResource {
+@RequestMapping(value = "/api/stocks", produces = MediaType.APPLICATION_JSON_VALUE)
+public class StockResource {
 
-    private final KycService kycService;
+    private final StockService stockService;
 
-    public KycResource(final KycService kycService) {
-        this.kycService = kycService;
+    public StockResource(final StockService stockService) {
+        this.stockService = stockService;
     }
 
     @GetMapping
-    public ResponseEntity<List<KycDTO>> getAllKycs() {
-        return ResponseEntity.ok(kycService.findAll());
+    public ResponseEntity<List<StockDTO>> getAllStocks() {
+        return ResponseEntity.ok(stockService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<KycDTO> getKyc(@PathVariable(name = "id") final UUID id) {
-        return ResponseEntity.ok(kycService.get(id));
+    public ResponseEntity<StockDTO> getStock(@PathVariable(name = "id") final UUID id) {
+        return ResponseEntity.ok(stockService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<UUID> createKyc(@RequestBody @Valid final KycDTO kycDTO) {
-        final UUID createdId = kycService.create(kycDTO);
+    public ResponseEntity<UUID> createStock(@RequestBody @Valid final StockDTO stockDTO) {
+        final UUID createdId = stockService.create(stockDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UUID> updateKyc(@PathVariable(name = "id") final UUID id,
-            @RequestBody @Valid final KycDTO kycDTO) {
-        kycService.update(id, kycDTO);
+    public ResponseEntity<UUID> updateStock(@PathVariable(name = "id") final UUID id,
+            @RequestBody @Valid final StockDTO stockDTO) {
+        stockService.update(id, stockDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteKyc(@PathVariable(name = "id") final UUID id) {
-        kycService.delete(id);
+    public ResponseEntity<Void> deleteStock(@PathVariable(name = "id") final UUID id) {
+        stockService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

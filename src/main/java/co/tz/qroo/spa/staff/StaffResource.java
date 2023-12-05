@@ -1,4 +1,4 @@
-package co.tz.qroo.spa.kyc;
+package co.tz.qroo.spa.staff;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/kycs", produces = MediaType.APPLICATION_JSON_VALUE)
-public class KycResource {
+@RequestMapping(value = "/api/staffs", produces = MediaType.APPLICATION_JSON_VALUE)
+public class StaffResource {
 
-    private final KycService kycService;
+    private final StaffService staffService;
 
-    public KycResource(final KycService kycService) {
-        this.kycService = kycService;
+    public StaffResource(final StaffService staffService) {
+        this.staffService = staffService;
     }
 
     @GetMapping
-    public ResponseEntity<List<KycDTO>> getAllKycs() {
-        return ResponseEntity.ok(kycService.findAll());
+    public ResponseEntity<List<StaffDTO>> getAllStaffs() {
+        return ResponseEntity.ok(staffService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<KycDTO> getKyc(@PathVariable(name = "id") final UUID id) {
-        return ResponseEntity.ok(kycService.get(id));
+    public ResponseEntity<StaffDTO> getStaff(@PathVariable(name = "id") final UUID id) {
+        return ResponseEntity.ok(staffService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<UUID> createKyc(@RequestBody @Valid final KycDTO kycDTO) {
-        final UUID createdId = kycService.create(kycDTO);
+    public ResponseEntity<UUID> createStaff(@RequestBody @Valid final StaffDTO staffDTO) {
+        final UUID createdId = staffService.create(staffDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UUID> updateKyc(@PathVariable(name = "id") final UUID id,
-            @RequestBody @Valid final KycDTO kycDTO) {
-        kycService.update(id, kycDTO);
+    public ResponseEntity<UUID> updateStaff(@PathVariable(name = "id") final UUID id,
+            @RequestBody @Valid final StaffDTO staffDTO) {
+        staffService.update(id, staffDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteKyc(@PathVariable(name = "id") final UUID id) {
-        kycService.delete(id);
+    public ResponseEntity<Void> deleteStaff(@PathVariable(name = "id") final UUID id) {
+        staffService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

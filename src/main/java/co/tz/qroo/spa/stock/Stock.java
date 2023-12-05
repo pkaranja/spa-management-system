@@ -1,21 +1,15 @@
-package co.tz.qroo.spa.attendant;
+package co.tz.qroo.spa.stock;
 
-import co.tz.qroo.spa.kyc.Gender;
-import co.tz.qroo.spa.service.Service;
+import co.tz.qroo.spa.vendor.Vendor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import jakarta.persistence.ManyToOne;
 import java.time.OffsetDateTime;
-import java.util.Set;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Attendant {
+public class Stock {
 
     @Id
     @Column(nullable = false, updatable = false, columnDefinition = "char(36)")
@@ -37,44 +31,33 @@ public class Attendant {
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
-    @Column(nullable = false, unique = true, columnDefinition = "char(36)")
-    private UUID userId;
-
     @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
-    private String phoneNumber;
+    private String productName;
 
     @Column
-    private String emailAddress;
+    private String itemCode;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String cost;
+
+    @Column
+    private String sellingPrice;
 
     @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private Integer quantity;
 
     @Column(nullable = false)
+    private Integer alertQuantity;
+
+    @Column(name = "\"description\"", columnDefinition = "longtext")
+    private String description;
+
+    @Column
     private Boolean active;
 
-    @Column(nullable = false)
-    private LocalTime availabilityStartTime;
-
-    @Column(nullable = false)
-    private LocalTime availabilityEndTime;
-
-    @ManyToMany
-    @JoinTable(
-            name = "AttendantServices",
-            joinColumns = @JoinColumn(name = "attendantId"),
-            inverseJoinColumns = @JoinColumn(name = "serviceId")
-    )
-    private Set<Service> services;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", nullable = false)
+    private Vendor vendor;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

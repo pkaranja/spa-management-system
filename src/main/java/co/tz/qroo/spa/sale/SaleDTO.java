@@ -47,7 +47,7 @@ public class SaleDTO {
     @Size(max = 255)
     private String externalTransactionId;
 
-    private List<UUID> attendants;
+    private List<UUID> staff;
 
     private UUID appointment;
 

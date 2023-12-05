@@ -1,4 +1,4 @@
-package co.tz.qroo.spa.attendant;
+package co.tz.qroo.spa.vendor;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -18,44 +18,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/attendants", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AttendantResource {
+@RequestMapping(value = "/api/vendors", produces = MediaType.APPLICATION_JSON_VALUE)
+public class VendorResource {
 
-    private final AttendantService attendantService;
+    private final VendorService vendorService;
 
-    public AttendantResource(final AttendantService attendantService) {
-        this.attendantService = attendantService;
+    public VendorResource(final VendorService vendorService) {
+        this.vendorService = vendorService;
     }
 
     @GetMapping
-    public ResponseEntity<List<AttendantDTO>> getAllAttendants() {
-        return ResponseEntity.ok(attendantService.findAll());
+    public ResponseEntity<List<VendorDTO>> getAllVendors() {
+        return ResponseEntity.ok(vendorService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AttendantDTO> getAttendant(@PathVariable(name = "id") final UUID id) {
-        return ResponseEntity.ok(attendantService.get(id));
+    public ResponseEntity<VendorDTO> getVendor(@PathVariable(name = "id") final UUID id) {
+        return ResponseEntity.ok(vendorService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<UUID> createAttendant(
-            @RequestBody @Valid final AttendantDTO attendantDTO) {
-        final UUID createdId = attendantService.create(attendantDTO);
+    public ResponseEntity<UUID> createVendor(@RequestBody @Valid final VendorDTO vendorDTO) {
+        final UUID createdId = vendorService.create(vendorDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UUID> updateAttendant(@PathVariable(name = "id") final UUID id,
-            @RequestBody @Valid final AttendantDTO attendantDTO) {
-        attendantService.update(id, attendantDTO);
+    public ResponseEntity<UUID> updateVendor(@PathVariable(name = "id") final UUID id,
+            @RequestBody @Valid final VendorDTO vendorDTO) {
+        vendorService.update(id, vendorDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteAttendant(@PathVariable(name = "id") final UUID id) {
-        attendantService.delete(id);
+    public ResponseEntity<Void> deleteVendor(@PathVariable(name = "id") final UUID id) {
+        vendorService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

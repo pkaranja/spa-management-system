@@ -1,10 +1,10 @@
 package co.tz.qroo.spa.service;
 
 import co.tz.qroo.spa.appointment.AppointmentRepository;
-import co.tz.qroo.spa.attendant.AttendantRepository;
 import co.tz.qroo.spa.service_category.ServiceCategory;
 import co.tz.qroo.spa.service_category.ServiceCategoryRepository;
 import co.tz.qroo.spa.service_package.ServicePackageRepository;
+import co.tz.qroo.spa.staff.StaffRepository;
 import co.tz.qroo.spa.util.NotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -20,18 +20,18 @@ public class ServiceService {
     private final ServiceCategoryRepository serviceCategoryRepository;
     private final ServicePackageRepository servicePackageRepository;
     private final AppointmentRepository appointmentRepository;
-    private final AttendantRepository attendantRepository;
+    private final StaffRepository staffRepository;
 
     public ServiceService(final ServiceRepository serviceRepository,
             final ServiceCategoryRepository serviceCategoryRepository,
             final ServicePackageRepository servicePackageRepository,
             final AppointmentRepository appointmentRepository,
-            final AttendantRepository attendantRepository) {
+            final StaffRepository staffRepository) {
         this.serviceRepository = serviceRepository;
         this.serviceCategoryRepository = serviceCategoryRepository;
         this.servicePackageRepository = servicePackageRepository;
         this.appointmentRepository = appointmentRepository;
-        this.attendantRepository = attendantRepository;
+        this.staffRepository = staffRepository;
     }
 
     public List<ServiceDTO> findAll() {
@@ -68,8 +68,8 @@ public class ServiceService {
                 .forEach(servicePackage -> servicePackage.getServices().remove(service));
         appointmentRepository.findAllByServices(service)
                 .forEach(appointment -> appointment.getServices().remove(service));
-        attendantRepository.findAllByServices(service)
-                .forEach(attendant -> attendant.getServices().remove(service));
+        staffRepository.findAllByServices(service)
+                .forEach(staff -> staff.getServices().remove(service));
         serviceRepository.delete(service);
     }
 
@@ -81,7 +81,6 @@ public class ServiceService {
         serviceDTO.setServiceEndTime(service.getServiceEndTime());
         serviceDTO.setActive(service.getActive());
         serviceDTO.setCategory(service.getCategory() == null ? null : service.getCategory().getId());
-        serviceDTO.setCategoryName(service.getCategory() == null ? null : service.getCategory().getCategoryName());
         return serviceDTO;
     }
 

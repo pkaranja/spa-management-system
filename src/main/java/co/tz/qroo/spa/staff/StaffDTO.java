@@ -1,9 +1,12 @@
-package co.tz.qroo.spa.attendant;
+package co.tz.qroo.spa.staff;
 
 import co.tz.qroo.spa.kyc.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -14,7 +17,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AttendantDTO {
+public class StaffDTO {
 
     private UUID id;
 
@@ -43,15 +46,31 @@ public class AttendantDTO {
     private LocalDate dateOfBirth;
 
     @NotNull
+    @Size(max = 255)
+    private String designation;
+
+    @NotNull
+    @Schema(type = "string", example = "18:30")
+    private LocalTime checkinTime;
+
+    @NotNull
+    @Schema(type = "string", example = "18:30")
+    private LocalTime checkoutTime;
+
+    @NotNull
+    @Size(max = 255)
+    private String joiningDate;
+
+    @NotNull
     private Boolean active;
 
     @NotNull
-    @Schema(type = "string", example = "18:30")
-    private LocalTime availabilityStartTime;
+    @Digits(integer = 10, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Schema(type = "string", example = "90.08")
+    private BigDecimal salary;
 
-    @NotNull
-    @Schema(type = "string", example = "18:30")
-    private LocalTime availabilityEndTime;
+    private Double commission;
 
     private List<UUID> services;
 

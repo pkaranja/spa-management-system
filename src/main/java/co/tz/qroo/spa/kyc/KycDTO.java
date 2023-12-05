@@ -46,6 +46,13 @@ public class KycDTO {
     @NotNull
     private Boolean acceptAgeLimit;
 
+    @NotNull
+    @Size(max = 255)
+    private String referralId;
+
+    @NotNull
+    private Integer points;
+
     private List<UUID> appointments;
 
 }

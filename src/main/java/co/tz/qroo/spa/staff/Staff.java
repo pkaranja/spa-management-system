@@ -1,20 +1,20 @@
-package co.tz.qroo.spa.sale;
+package co.tz.qroo.spa.staff;
 
-import co.tz.qroo.spa.appointment.Appointment;
-import co.tz.qroo.spa.staff.Staff;
+import co.tz.qroo.spa.kyc.Gender;
+import co.tz.qroo.spa.service.Service;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -30,7 +30,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Sale {
+public class Staff {
 
     @Id
     @Column(nullable = false, updatable = false, columnDefinition = "char(36)")
@@ -38,39 +38,56 @@ public class Sale {
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
+    @Column(nullable = false, unique = true, columnDefinition = "char(36)")
+    private UUID userId;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @Column
+    private String emailAddress;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private SaleType saleType;
-
-    @Column(nullable = false, columnDefinition = "char(36)")
-    private UUID saleItem;
+    private Gender gender;
 
     @Column(nullable = false)
-    private Integer quantity;
+    private LocalDate dateOfBirth;
+
+    @Column(nullable = false)
+    private String designation;
+
+    @Column(nullable = false)
+    private LocalTime checkinTime;
+
+    @Column(nullable = false)
+    private LocalTime checkoutTime;
+
+    @Column(nullable = false)
+    private String joiningDate;
+
+    @Column(nullable = false)
+    private Boolean active;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalAmount;
+    private BigDecimal salary;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal discountAmount;
-
-    @Column(nullable = false)
-    private String paidAmount;
-
-    @Column(nullable = false)
-    private String externalTransactionId;
+    @Column
+    private Double commission;
 
     @ManyToMany
     @JoinTable(
-            name = "AttendantSales",
-            joinColumns = @JoinColumn(name = "saleId"),
-            inverseJoinColumns = @JoinColumn(name = "staffId")
+            name = "AttendantServices",
+            joinColumns = @JoinColumn(name = "staffId"),
+            inverseJoinColumns = @JoinColumn(name = "serviceId")
     )
-    private Set<Staff> staff;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "appointment_id", unique = true)
-    private Appointment appointment;
+    private Set<Service> services;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

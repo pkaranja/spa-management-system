@@ -66,6 +66,12 @@ public class Kyc {
     @Column(nullable = false)
     private Boolean acceptAgeLimit;
 
+    @Column(nullable = false, unique = true)
+    private String referralId;
+
+    @Column(nullable = false, unique = true)
+    private Integer points;
+
     @ManyToMany
     @JoinTable(
             name = "CustomerAppointments",

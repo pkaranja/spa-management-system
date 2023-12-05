@@ -16,4 +16,8 @@ public interface KycRepository extends JpaRepository<Kyc, UUID> {
 
     boolean existsByEmailIgnoreCase(String email);
 
+    boolean existsByReferralIdIgnoreCase(String referralId);
+
+    boolean existsByPoints(Integer points);
+
 }

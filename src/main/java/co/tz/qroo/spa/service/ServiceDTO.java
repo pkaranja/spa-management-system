@@ -40,7 +40,4 @@ public class ServiceDTO {
     @NotNull
     private UUID category;
 
-    @NotNull
-    private String categoryName;
-
 }

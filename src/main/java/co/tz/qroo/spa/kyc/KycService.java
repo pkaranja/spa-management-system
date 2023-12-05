@@ -67,6 +67,8 @@ public class KycService {
         kycDTO.setRemarks(kyc.getRemarks());
         kycDTO.setAcceptTerms(kyc.getAcceptTerms());
         kycDTO.setAcceptAgeLimit(kyc.getAcceptAgeLimit());
+        kycDTO.setReferralId(kyc.getReferralId());
+        kycDTO.setPoints(kyc.getPoints());
         kycDTO.setAppointments(kyc.getAppointments().stream()
                 .map(appointment -> appointment.getId())
                 .toList());
@@ -84,6 +86,8 @@ public class KycService {
         kyc.setRemarks(kycDTO.getRemarks());
         kyc.setAcceptTerms(kycDTO.getAcceptTerms());
         kyc.setAcceptAgeLimit(kycDTO.getAcceptAgeLimit());
+        kyc.setReferralId(kycDTO.getReferralId());
+        kyc.setPoints(kycDTO.getPoints());
         final List<Appointment> appointments = appointmentRepository.findAllById(
                 kycDTO.getAppointments() == null ? Collections.emptyList() : kycDTO.getAppointments());
         if (appointments.size() != (kycDTO.getAppointments() == null ? 0 : kycDTO.getAppointments().size())) {
@@ -103,6 +107,14 @@ public class KycService {
 
     public boolean emailExists(final String email) {
         return kycRepository.existsByEmailIgnoreCase(email);
+    }
+
+    public boolean referralIdExists(final String referralId) {
+        return kycRepository.existsByReferralIdIgnoreCase(referralId);
+    }
+
+    public boolean pointsExists(final Integer points) {
+        return kycRepository.existsByPoints(points);
     }
 
 }
