@@ -56,7 +56,7 @@ public class ServicePackage {
     private String image;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    private BigDecimal cost;
 
     @ManyToMany
     @JoinTable(

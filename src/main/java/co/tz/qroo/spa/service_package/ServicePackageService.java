@@ -73,7 +73,7 @@ public class ServicePackageService {
         servicePackageDTO.setDescription(servicePackage.getDescription());
         servicePackageDTO.setDaysOffered(servicePackage.getDaysOffered());
         servicePackageDTO.setImage(servicePackage.getImage());
-        servicePackageDTO.setPrice(servicePackage.getPrice());
+        servicePackageDTO.setCost(servicePackage.getCost());
         servicePackageDTO.setServices(servicePackage.getServices().stream()
                 .map(service -> service.getId())
                 .toList());
@@ -89,7 +89,7 @@ public class ServicePackageService {
         servicePackage.setDescription(servicePackageDTO.getDescription());
         servicePackage.setDaysOffered(servicePackageDTO.getDaysOffered());
         servicePackage.setImage(servicePackageDTO.getImage());
-        servicePackage.setPrice(servicePackageDTO.getPrice());
+        servicePackage.setCost(servicePackageDTO.getCost());
         final List<co.tz.qroo.spa.service.Service> services = serviceRepository.findAllById(
                 servicePackageDTO.getServices() == null ? Collections.emptyList() : servicePackageDTO.getServices());
         if (services.size() != (servicePackageDTO.getServices() == null ? 0 : servicePackageDTO.getServices().size())) {

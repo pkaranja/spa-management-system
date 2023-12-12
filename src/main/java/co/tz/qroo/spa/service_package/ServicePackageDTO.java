@@ -3,6 +3,8 @@ package co.tz.qroo.spa.service_package;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +40,9 @@ public class ServicePackageDTO {
 
     @Size(max = 255)
     private String image;
+
+    @NotNull
+    private BigDecimal cost;
 
     private List<UUID> services;
 
