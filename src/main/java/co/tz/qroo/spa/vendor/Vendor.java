@@ -30,10 +30,10 @@ public class Vendor {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
+    @Column(length = 20)
     private String phoneNumber;
 
-    @Column
+    @Column(length = 50)
     private String emailAddress;
 
     @Column
@@ -41,6 +41,15 @@ public class Vendor {
 
     @Column(name = "\"description\"", columnDefinition = "longtext")
     private String description;
+
+    @Column
+    private String contactPerson;
+
+    @Column(length = 50)
+    private String contactPersonEmail;
+
+    @Column(length = 20)
+    private String contactPersonPhone;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

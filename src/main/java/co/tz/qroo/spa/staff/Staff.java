@@ -78,8 +78,14 @@ public class Staff {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal salary;
 
+    @Column(precision = 10, scale = 2)
+    private BigDecimal commissionAmount;
+
     @Column
-    private Double commission;
+    private Double commissionPercent;
+
+    @Column
+    private String offDays;
 
     @ManyToMany
     @JoinTable(

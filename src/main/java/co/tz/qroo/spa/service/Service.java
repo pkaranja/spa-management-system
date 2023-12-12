@@ -48,6 +48,15 @@ public class Service {
     @Column(nullable = false)
     private Boolean active;
 
+    @Column
+    private String daysAvailable;
+
+    @Column(name = "\"description\"", columnDefinition = "longtext")
+    private String description;
+
+    @Column
+    private String image;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private ServiceCategory category;

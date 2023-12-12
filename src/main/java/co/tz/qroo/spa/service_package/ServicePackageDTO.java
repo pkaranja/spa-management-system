@@ -31,6 +31,14 @@ public class ServicePackageDTO {
     @Schema(type = "string", example = "18:30")
     private LocalTime serviceEndTime;
 
+    private String description;
+
+    @Size(max = 255)
+    private String daysOffered;
+
+    @Size(max = 255)
+    private String image;
+
     private List<UUID> services;
 
 }

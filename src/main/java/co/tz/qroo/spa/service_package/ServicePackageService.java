@@ -70,6 +70,10 @@ public class ServicePackageService {
         servicePackageDTO.setActive(servicePackage.getActive());
         servicePackageDTO.setServiceStartTime(servicePackage.getServiceStartTime());
         servicePackageDTO.setServiceEndTime(servicePackage.getServiceEndTime());
+        servicePackageDTO.setDescription(servicePackage.getDescription());
+        servicePackageDTO.setDaysOffered(servicePackage.getDaysOffered());
+        servicePackageDTO.setImage(servicePackage.getImage());
+        servicePackageDTO.setPrice(servicePackage.getPrice());
         servicePackageDTO.setServices(servicePackage.getServices().stream()
                 .map(service -> service.getId())
                 .toList());
@@ -82,6 +86,10 @@ public class ServicePackageService {
         servicePackage.setActive(servicePackageDTO.getActive());
         servicePackage.setServiceStartTime(servicePackageDTO.getServiceStartTime());
         servicePackage.setServiceEndTime(servicePackageDTO.getServiceEndTime());
+        servicePackage.setDescription(servicePackageDTO.getDescription());
+        servicePackage.setDaysOffered(servicePackageDTO.getDaysOffered());
+        servicePackage.setImage(servicePackageDTO.getImage());
+        servicePackage.setPrice(servicePackageDTO.getPrice());
         final List<co.tz.qroo.spa.service.Service> services = serviceRepository.findAllById(
                 servicePackageDTO.getServices() == null ? Collections.emptyList() : servicePackageDTO.getServices());
         if (services.size() != (servicePackageDTO.getServices() == null ? 0 : servicePackageDTO.getServices().size())) {
@@ -89,6 +97,10 @@ public class ServicePackageService {
         }
         servicePackage.setServices(services.stream().collect(Collectors.toSet()));
         return servicePackage;
+    }
+
+    public boolean packageNameExists(final String packageName) {
+        return servicePackageRepository.existsByPackageNameIgnoreCase(packageName);
     }
 
 }

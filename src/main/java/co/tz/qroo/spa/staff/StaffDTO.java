@@ -70,7 +70,15 @@ public class StaffDTO {
     @Schema(type = "string", example = "90.08")
     private BigDecimal salary;
 
-    private Double commission;
+    @Digits(integer = 10, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Schema(type = "string", example = "71.08")
+    private BigDecimal commissionAmount;
+
+    private Double commissionPercent;
+
+    @Size(max = 255)
+    private String offDays;
 
     private List<UUID> services;
 

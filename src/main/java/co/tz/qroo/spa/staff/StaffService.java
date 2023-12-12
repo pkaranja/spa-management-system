@@ -77,7 +77,9 @@ public class StaffService {
         staffDTO.setJoiningDate(staff.getJoiningDate());
         staffDTO.setActive(staff.getActive());
         staffDTO.setSalary(staff.getSalary());
-        staffDTO.setCommission(staff.getCommission());
+        staffDTO.setCommissionAmount(staff.getCommissionAmount());
+        staffDTO.setCommissionPercent(staff.getCommissionPercent());
+        staffDTO.setOffDays(staff.getOffDays());
         staffDTO.setServices(staff.getServices().stream()
                 .map(service -> service.getId())
                 .toList());
@@ -98,7 +100,9 @@ public class StaffService {
         staff.setJoiningDate(staffDTO.getJoiningDate());
         staff.setActive(staffDTO.getActive());
         staff.setSalary(staffDTO.getSalary());
-        staff.setCommission(staffDTO.getCommission());
+        staff.setCommissionAmount(staffDTO.getCommissionAmount());
+        staff.setCommissionPercent(staffDTO.getCommissionPercent());
+        staff.setOffDays(staffDTO.getOffDays());
         final List<co.tz.qroo.spa.service.Service> services = serviceRepository.findAllById(
                 staffDTO.getServices() == null ? Collections.emptyList() : staffDTO.getServices());
         if (services.size() != (staffDTO.getServices() == null ? 0 : staffDTO.getServices().size())) {

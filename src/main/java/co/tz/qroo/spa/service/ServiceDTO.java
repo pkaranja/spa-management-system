@@ -37,6 +37,14 @@ public class ServiceDTO {
     @NotNull
     private Boolean active;
 
+    @Size(max = 255)
+    private String daysAvailable;
+
+    private String description;
+
+    @Size(max = 255)
+    private String image;
+
     @NotNull
     private UUID category;
 

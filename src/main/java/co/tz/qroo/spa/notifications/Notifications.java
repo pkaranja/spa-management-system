@@ -1,18 +1,14 @@
-package co.tz.qroo.spa.service_package;
+package co.tz.qroo.spa.notifications;
 
-import co.tz.qroo.spa.service.Service;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import java.math.BigDecimal;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.Set;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class ServicePackage {
+public class Notifications {
 
     @Id
     @Column(nullable = false, updatable = false, columnDefinition = "char(36)")
@@ -34,37 +30,25 @@ public class ServicePackage {
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String packageName;
+    @Column(nullable = false, columnDefinition = "longtext")
+    private String template;
 
     @Column(nullable = false)
+    private LocalDateTime startSend;
+
+    @Column
+    private LocalDateTime endSend;
+
+    @Column(nullable = false, name = "\"repeat\"")
+    @Enumerated(EnumType.STRING)
+    private RecursorType repeat;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private NotificationMedium medium;
+
+    @Column
     private Boolean active;
-
-    @Column(nullable = false)
-    private LocalTime serviceStartTime;
-
-    @Column(nullable = false)
-    private LocalTime serviceEndTime;
-
-    @Column(name = "\"description\"", columnDefinition = "longtext")
-    private String description;
-
-    @Column
-    private String daysOffered;
-
-    @Column
-    private String image;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
-
-    @ManyToMany
-    @JoinTable(
-            name = "PackageServices",
-            joinColumns = @JoinColumn(name = "servicePackageId"),
-            inverseJoinColumns = @JoinColumn(name = "serviceId")
-    )
-    private Set<Service> services;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

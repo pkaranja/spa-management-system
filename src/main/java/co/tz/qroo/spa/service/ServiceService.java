@@ -80,6 +80,9 @@ public class ServiceService {
         serviceDTO.setServiceStartTime(service.getServiceStartTime());
         serviceDTO.setServiceEndTime(service.getServiceEndTime());
         serviceDTO.setActive(service.getActive());
+        serviceDTO.setDaysAvailable(service.getDaysAvailable());
+        serviceDTO.setDescription(service.getDescription());
+        serviceDTO.setImage(service.getImage());
         serviceDTO.setCategory(service.getCategory() == null ? null : service.getCategory().getId());
         return serviceDTO;
     }
@@ -90,6 +93,9 @@ public class ServiceService {
         service.setServiceStartTime(serviceDTO.getServiceStartTime());
         service.setServiceEndTime(serviceDTO.getServiceEndTime());
         service.setActive(serviceDTO.getActive());
+        service.setDaysAvailable(serviceDTO.getDaysAvailable());
+        service.setDescription(serviceDTO.getDescription());
+        service.setImage(serviceDTO.getImage());
         final ServiceCategory category = serviceDTO.getCategory() == null ? null : serviceCategoryRepository.findById(serviceDTO.getCategory())
                 .orElseThrow(() -> new NotFoundException("category not found"));
         service.setCategory(category);

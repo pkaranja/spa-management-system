@@ -53,6 +53,9 @@ public class VendorService {
         vendorDTO.setEmailAddress(vendor.getEmailAddress());
         vendorDTO.setAddress(vendor.getAddress());
         vendorDTO.setDescription(vendor.getDescription());
+        vendorDTO.setContactPerson(vendor.getContactPerson());
+        vendorDTO.setContactPersonEmail(vendor.getContactPersonEmail());
+        vendorDTO.setContactPersonPhone(vendor.getContactPersonPhone());
         return vendorDTO;
     }
 
@@ -62,6 +65,9 @@ public class VendorService {
         vendor.setEmailAddress(vendorDTO.getEmailAddress());
         vendor.setAddress(vendorDTO.getAddress());
         vendor.setDescription(vendorDTO.getDescription());
+        vendor.setContactPerson(vendorDTO.getContactPerson());
+        vendor.setContactPersonEmail(vendorDTO.getContactPersonEmail());
+        vendor.setContactPersonPhone(vendorDTO.getContactPersonPhone());
         return vendor;
     }
 

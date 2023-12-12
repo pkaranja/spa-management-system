@@ -17,15 +17,24 @@ public class VendorDTO {
     @Size(max = 255)
     private String name;
 
-    @Size(max = 255)
+    @Size(max = 20)
     private String phoneNumber;
 
-    @Size(max = 255)
+    @Size(max = 50)
     private String emailAddress;
 
     @Size(max = 255)
     private String address;
 
     private String description;
+
+    @Size(max = 255)
+    private String contactPerson;
+
+    @Size(max = 50)
+    private String contactPersonEmail;
+
+    @Size(max = 20)
+    private String contactPersonPhone;
 
 }

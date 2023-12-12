@@ -10,4 +10,6 @@ public interface ServicePackageRepository extends JpaRepository<ServicePackage, 
 
     List<ServicePackage> findAllByServices(Service service);
 
+    boolean existsByPackageNameIgnoreCase(String packageName);
+
 }
